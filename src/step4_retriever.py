@@ -32,7 +32,7 @@ def retrieve(query: str, model, index, chunks, top_k: int = TOP_K):
     # 提示：使用 model.encode([query])
     # 代码：query_vector = ???
 
-    pass  # 删除这行
+    query_vector = model.encode([query]).astype("float32")
 
     # 2. 在向量数据库中搜索最相似的 top_k 个块
     # ========== TODO: 向量相似度搜索 ==========
@@ -40,7 +40,7 @@ def retrieve(query: str, model, index, chunks, top_k: int = TOP_K):
     # 返回的 distances 是距离矩阵，indices 是对应的索引
     # 代码：distances, indices = ???
 
-    pass  # 删除这行
+    distances, indices = index.search(query_vector, top_k)
 
     # 3. 整理结果，组装成列表返回
     results = []

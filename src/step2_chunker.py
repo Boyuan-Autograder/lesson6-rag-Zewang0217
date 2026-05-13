@@ -41,7 +41,13 @@ def chunk_text(text: str, chunk_size: int = CHUNK_SIZE, chunk_overlap: int = CHU
 
     # 你的代码：
 
-    pass  # 删除这行，填入你的代码
+    while start < text_len:
+        chunk = text[start : start + chunk_size]
+        if len(chunk) >= 20:
+            chunks.append(chunk)
+        start += chunk_size - chunk_overlap
+
+    return chunks
 
 
 def get_chunk_stats(chunks):

@@ -33,7 +33,7 @@ def create_vector_store(chunks, model_name: str = EMBEDDING_MODEL, device: str =
     # 提示：使用 SentenceTransformer(model_name, device=device)
     # 代码：model = ???
 
-    pass  # 删除这行
+    model = SentenceTransformer(model_name, device=device)
 
     # 2. 将文本块转换为向量
     print(f"正在生成 {len(chunks)} 个文本块的向量...")
@@ -42,7 +42,8 @@ def create_vector_store(chunks, model_name: str = EMBEDDING_MODEL, device: str =
     # 注意：向量需要转换为 float32 类型
     # 代码：embeddings = ???
 
-    pass  # 删除这行
+    embeddings = model.encode(chunks, show_progress_bar=True)
+    embeddings = np.array(embeddings).astype("float32")
 
     # 3. 建立 FAISS 索引
     dimension = embeddings.shape[1]
@@ -54,8 +55,8 @@ def create_vector_store(chunks, model_name: str = EMBEDDING_MODEL, device: str =
     # 代码：
     #   index = ???
     #   index.add(???)
-
-    pass  # 删除这行
+    index = faiss.IndexFlatL2(dimension)
+    index.add(embeddings)
 
     print(f"向量数据库构建完成，共 {index.ntotal} 条向量")
     return model, index, chunks

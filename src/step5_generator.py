@@ -46,7 +46,8 @@ def generate_answer(query: str, retrieved_chunks: list, api_key: str = OPENAI_AP
     # 提示：根据 query 中的关键词，在 context 中查找匹配的句子
     # 代码：answer = ???
 
-    pass  # 删除这行
+    answer = extract_answer_from_context(query, context)
+    return answer
 
 
 def extract_answer_from_context(query: str, context: str) -> str:
